@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :problem_cases
+  resources :cases
+  resources :case_types
   get 'map/index'
 
   resources :users

@@ -23,9 +23,14 @@
   %w(13 金沢西 H29.1.24 17:50 下校中 道路 徒歩 接触),
   %w(14 七尾 H29.1.31 7:50 その他 その他 不明 その他)
 ].each do |r|
-  User.find_or_create_by(
+  u = User.find_or_create_by(
     title: r[7],
     description: r[0..7].join(' '),
     address: '石川県' + r[1] + "(石川県警情報より)"
+  )
+  u.geocode
+  u.save!
+  CaseType.find_or_create_by(
+    name: r[7]
   )
 end

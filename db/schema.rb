@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305000314) do
+ActiveRecord::Schema.define(version: 20170305084725) do
+
+  create_table "case_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "problem_cases", force: :cascade do |t|
+    t.integer  "case_type_id"
+    t.text     "description"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "time"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.boolean  "by_map"
+    t.index ["case_type_id"], name: "index_problem_cases_on_case_type_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "title"

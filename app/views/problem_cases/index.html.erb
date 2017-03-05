@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>事案一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>種類</th>
+      <th>詳細</th>
+      <th>場所</th>
+      <th>緯度</th>
+      <th>経度</th>
+      <th>発生時間</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problem_cases.each do |problem_case| %>
+      <tr>
+        <td><%= problem_case.case_type.name %></td>
+        <td><%= problem_case.description %></td>
+        <td><%= problem_case.address %></td>
+        <td><%= problem_case.latitude %></td>
+        <td><%= problem_case.longitude %></td>
+        <td><%= problem_case.time %></td>
+        <td><%= link_to 'Show', problem_case %></td>
+        <td><%= link_to 'Edit', edit_problem_case_path(problem_case) %></td>
+        <td><%= link_to 'Destroy', problem_case, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Problem Case', new_problem_case_path %>

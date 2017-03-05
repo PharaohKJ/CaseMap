@@ -1,11 +1,12 @@
 class MapController < ApplicationController
   def index
-    @users = User.all
-    @hash = Gmaps4rails.build_markers(@users) do |user, marker|
-      marker.lat user.latitude
-      marker.lng user.longitude
-      marker.infowindow user.description
-      marker.json(title: user.title)
+    @pcases = ProblemCase.all
+    @markers = Gmaps4rails.build_markers(@pcases) do |pcase, marker|
+      next if pcase.latitude.nil?
+      marker.lat pcase.latitude
+      marker.lng pcase.longitude
+      marker.infowindow pcase.description.to_s
+      marker.json(title: pcase.case_type.name)
     end
   end
 end

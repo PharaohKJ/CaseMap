@@ -1,4 +1,9 @@
 <h1>事例マップ</h1>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
 <div>
   <h2>最近あった事例10件</h2>
   <table border="1">
@@ -7,7 +12,7 @@
         事例
       </th>
       <th>
-        場所
+        場所(緯度・経度より)
       </th>
       <th>
         発生日時
@@ -16,16 +21,16 @@
         詳細
       </th>
     </tr>
-    <% User.all.order(created_at: :desc).limit(10).each do |r| %>
+    <% ProblemCase.all.order(created_at: :desc).limit(10).each do |r| %>
       <tr>
         <td>
-          <%= r.title %>
+          <%= r.case_type.name %>
         </td>
         <td>
-          <%= r.address%>
+          <%= r.address %>
         </td>
         <td>
-          <%= r.created_at %>
+          <%= r.time %>
         </td>
         <td>
           <%= r.description %>
@@ -33,50 +38,19 @@
       </tr>
     <% end %>
   </table>
-  <div>
-    <%=link_to '事例の一覧・編集・削除', users_path %>
-  </div>
 </div>
 
 <div>
-  <h2></h2>
+  <%=link_to '事例の追加', new_problem_case_path %>
 </div>
 
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
-</div>
-
-<div>
-  <input type="text" id="user_lng">
-  <input type="text" id="user_lat">
-</div>
 
 <script type="text/javascript">
  handler = Gmaps.build('Google');
  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-   markers = handler.addMarkers(<%=raw @hash.to_json %>);
+   markers = handler.addMarkers(<%=raw @markers.to_json %>);
    handler.bounds.extendWith(markers);
    handler.fitMapToBounds();
-   google.maps.event.addListener(handler.getMap(), "click", function(e) {
-     $('#user_lat').val(e.latLng.lat());
-     $('#user_lng').val(e.latLng.lng());
-     /* handler.addMarkers(
-      *   [
-      *     {
-      *       lat: e.latLng.lat(),
-      *       lng: e.latLng.lng(),
-      *       picture: {
-      *         url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-      *         width: 36,
-      *         height: 36
-      *       }
-      *     }
-      *   ],
-      *   {draggable: true}
-      * )*/
-     // alert("You clicked the map.");
-     // alert("" + e.latLng.lng() + " / " + e.latLng.lat());
-   });
  });
 
 </script>

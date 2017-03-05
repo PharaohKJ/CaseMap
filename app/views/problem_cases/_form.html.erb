@@ -1,0 +1,71 @@
+<%= form_for(problem_case) do |f| %>
+  <% if problem_case.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(problem_case.errors.count, "error") %> prohibited this problem_case from being saved:</h2>
+
+      <ul>
+        <% problem_case.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <h2>種類</h2>
+    <%= f.select :case_type_id, CaseType.all.map{ |t| [t.name, t.id] }, :selected => CaseType.all.last.id %>
+  </div>
+
+  <div class="field">
+    <h2>だいたいの発生時間</h2>
+    <%= f.datetime_select :time %>
+  </div>
+
+  <div class="field">
+    <h2>詳細</h2>
+    <%= f.text_area :description, size: '100x10', placeholder: '例) 通学路●●公園付近で声をかけられました。サングラス、帽子をしていました。' %>
+  </div>
+
+  <!--
+  <div class="field">
+    <h2>発生場所</h2>
+    <%= f.text_field :address, value: '石川県', placeholder: '例) 石川県金沢市平和町' %>
+    <%= f.check_box :by_map %> <%= f.label :by_map, '発生場所をマップで指定する場合にはチェックしてください' %>
+  </div>
+  -->
+
+  <div>
+    <div class="field">
+      <h2>緯度 / 経度 (下の地図をクリックした場所が自動入力されます)</h2>
+
+      <%= f.text_field :latitude, value: '36.5946816', readonly: true, id: 'user_lat' %> / <%= f.text_field :longitude, value: '136.6255726', readonly: true, id: 'user_lng' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit '作成する' %>
+  </div>
+<% end %>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+
+<script type="text/javascript">
+ handler = Gmaps.build('Google');
+ handler.buildMap({
+   provider: {
+     zoom:      10,
+     center:    new google.maps.LatLng(36.5946816, 136.6255726),
+   },
+   internal: {
+     id: 'map'
+   }}, function(){
+     google.maps.event.addListener(handler.getMap(), "click", function(e) {
+       $('#user_lat').val(e.latLng.lat());
+       $('#user_lng').val(e.latLng.lng());
+     });
+   });
+
+</script>
