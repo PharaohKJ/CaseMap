@@ -26,6 +26,6 @@
   User.find_or_create_by(
     title: r[7],
     description: r[0..7].join(' '),
-    address: '石川県'+r[1]
+    address: '石川県' + r[1] + "(石川県警情報より)"
   )
 end
