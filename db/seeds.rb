@@ -7,7 +7,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-[
+samples = [
   %w(1 白山 H28.12.31 12:30 その他 道路 自転車 露出),
   %w(2 大聖寺 H29.1.4 11:00 その他 その他 不明 迷惑行為),
   %w(3 金沢西 H29.1.11 不明 下校中 道路 不明 声掛け),
@@ -22,15 +22,20 @@
   %w(12 金沢西 H29.1.23 14:00 その他 その他 不明 その他),
   %w(13 金沢西 H29.1.24 17:50 下校中 道路 徒歩 接触),
   %w(14 七尾 H29.1.31 7:50 その他 その他 不明 その他)
-].each do |r|
-  u = User.find_or_create_by(
-    title: r[7],
-    description: r[0..7].join(' '),
-    address: '石川県' + r[1] + "(石川県警情報より)"
-  )
-  u.geocode
-  u.save!
+]
+
+samples.each do |r|
   CaseType.find_or_create_by(
     name: r[7]
   )
+end
+
+samples.each do |r|
+  pc = ProblemCase.find_or_create_by(
+    case_type_id: CaseType.find_by(name: r[7]).id,
+    description: r[0..7].join(' ') + "(石川県警情報より)",
+    address: '石川県' + r[1]
+  )
+  pc.geocode
+  pc.save!
 end

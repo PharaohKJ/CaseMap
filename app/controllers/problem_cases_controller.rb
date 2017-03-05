@@ -28,7 +28,7 @@ class ProblemCasesController < ApplicationController
     # @problem_case.geocode if problem_case_params[:by_map] == '0'
     respond_to do |format|
       if @problem_case.save
-        format.html { redirect_to @problem_case, notice: 'Problem case was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Problem case was successfully created.' }
         format.json { render :show, status: :created, location: @problem_case }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ProblemCasesController < ApplicationController
         #  @problem_case.geocode
         #  @problem_case.save!
         # end
-        format.html { redirect_to @problem_case, notice: 'Problem case was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Problem case was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem_case }
       else
         format.html { render :edit }
