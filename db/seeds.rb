@@ -31,8 +31,11 @@ samples.each do |r|
 end
 
 samples.each do |r|
+  md = r[2].split('.')
+  hm = r[3].split(':')
   pc = ProblemCase.find_or_create_by(
     case_type_id: CaseType.find_by(name: r[7]).id,
+    time:   DateTime.new(2017, md[1].to_i, md[2].to_i, hm[0].to_i, hm[1].to_i),
     description: r[0..7].join(' ') + "(石川県警情報より)",
     address: '石川県' + r[1]
   )
