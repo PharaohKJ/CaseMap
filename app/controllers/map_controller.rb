@@ -1,6 +1,6 @@
 class MapController < ApplicationController
   def index
-    @pcases = ProblemCase.all
+    @pcases = ProblemCase.where('latitude >= ?', 0)
     @markers = Gmaps4rails.build_markers(@pcases) do |pcase, marker|
       next if pcase.latitude.nil?
       marker.lat pcase.latitude
