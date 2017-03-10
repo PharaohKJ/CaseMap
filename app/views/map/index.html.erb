@@ -5,6 +5,9 @@
 </div>
 
 <div>
+  <div><h2>
+    <%=link_to '事例の追加', new_problem_case_path %>
+  </h2></div>
   <h2>最近あった事例10件</h2>
   <table border="1">
     <tr>
@@ -39,11 +42,6 @@
     <% end %>
   </table>
 </div>
-
-<div>
-  <%=link_to '事例の追加', new_problem_case_path %>
-</div>
-
 
 <script type="text/javascript">
  handler = Gmaps.build('Google');
