@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   end
 
   def session_destroy
-    session[:user_id] = nil
+    reset_session
   end
 end

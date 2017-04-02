@@ -21,9 +21,6 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     set_user_from_session
-    errmsg = 'ログインしていません'
-    return redirect_to root_path, notice: errmsg if @me.nil?
-    return redirect_to root_path, notice: errmsg if @me.id.to_i != params[:id].to_i
   end
 
   # POST /users
