@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305084725) do
+ActiveRecord::Schema.define(version: 20170402001140) do
 
   create_table "case_types", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +39,11 @@ ActiveRecord::Schema.define(version: 20170305084725) do
     t.float    "longitude"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "email"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "provider"
+    t.string   "image"
   end
 
 end

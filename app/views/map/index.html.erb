@@ -1,13 +1,20 @@
 <h1>事例マップ</h1>
-
+<div>
+  <p id="notice"><%= notice %></p>
+</div>
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 400px;'></div>
 </div>
-
 <div>
-  <div><h2>
-    <%=link_to '事例の追加', new_problem_case_path %>
-  </h2></div>
+  <div>
+    <% if @me.nil? %>
+      <h2> <%= link_to 'Facebookでログイン', '/auth/facebook' %>すれば事例を追加 & 通知を受け取ることができます </h2>
+    <% else %>
+      <h2> <%=link_to '事例の追加', new_problem_case_path %></h2>
+      <li><%= link_to '通知メール受取などの変更', edit_user_path(@me.id) %></li>
+      <li><%= link_to 'ログアウト', '/logout' %></li>
+    <% end %>
+  </div>
   <h2>最近あった事例10件</h2>
   <table border="1">
     <tr>

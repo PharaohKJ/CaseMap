@@ -1,3 +1,4 @@
+# coding: utf-8
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -63,14 +64,30 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
+  def auth
+    registerd_user = User.create_or_update_by_auth(request.env['omniauth.auth'])
+    session_save(registerd_user.id)
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'ログインしました' }
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:title, :description, :address, :latitude, :longitude)
+  def logout
+    session_destroy
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'ログアウトしました' }
     end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:title, :description, :address, :latitude, :longitude)
+  end
 end
