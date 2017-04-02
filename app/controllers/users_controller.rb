@@ -20,6 +20,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    set_user_from_session
+    errmsg = 'ログインしていません'
+    return redirect_to root_path, notice: errmsg if @me.nil?
+    return redirect_to root_path, notice: errmsg if @me.id.to_i != params[:id].to_i
   end
 
   # POST /users
@@ -45,7 +49,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to root_path, notice: '登録情報を更新しました。' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -88,6 +92,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:title, :description, :address, :latitude, :longitude)
+    params.require(:user).permit(:title, :description, :address, :latitude, :longitude, :name, :email)
   end
 end
