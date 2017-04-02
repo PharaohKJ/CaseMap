@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402001140) do
+ActiveRecord::Schema.define(version: 20170402054939) do
 
   create_table "case_types", force: :cascade do |t|
     t.string   "name"
@@ -28,7 +28,9 @@ ActiveRecord::Schema.define(version: 20170402001140) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.boolean  "by_map"
+    t.integer  "user_id"
     t.index ["case_type_id"], name: "index_problem_cases_on_case_type_id"
+    t.index ["user_id"], name: "index_problem_cases_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

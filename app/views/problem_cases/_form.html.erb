@@ -43,6 +43,7 @@
   </div>
 
   <div class="actions">
+    <%= f.hidden_field :user_id, value: @me.nil? ? nil : @me.id %>
     <%= f.submit '作成する' %>
   </div>
 <% end %>

@@ -1,3 +1,4 @@
+# coding: utf-8
 class ProblemCasesController < ApplicationController
   before_action :set_problem_case, only: [:show, :edit, :update, :destroy]
 
@@ -14,6 +15,7 @@ class ProblemCasesController < ApplicationController
 
   # GET /problem_cases/new
   def new
+    set_user_from_session
     @problem_case = ProblemCase.new
   end
 
@@ -24,11 +26,13 @@ class ProblemCasesController < ApplicationController
   # POST /problem_cases
   # POST /problem_cases.json
   def create
+    set_user_from_session
     @problem_case = ProblemCase.new(problem_case_params)
     # @problem_case.geocode if problem_case_params[:by_map] == '0'
     respond_to do |format|
       if @problem_case.save
-        format.html { redirect_to root_path, notice: 'Problem case was successfully created.' }
+        AddCaseMailer.add_case(@problem_case).deliver_now
+        format.html { redirect_to root_path, notice: '情報は登録されました' }
         format.json { render :show, status: :created, location: @problem_case }
       else
         format.html { render :new }
@@ -80,7 +84,8 @@ class ProblemCasesController < ApplicationController
         :latitude,
         :longitude,
         :time,
-        :by_map
+        :by_map,
+        :user_id
       )
     end
 end
