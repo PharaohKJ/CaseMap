@@ -15,8 +15,8 @@ class User < ApplicationRecord
       )
     else
       target_user.update!(
-        provider: from_auth[:provider],
-        image: from_auth[:image]
+        provider: from_auth.provider,
+        image: from_auth.info.image
       )
     end
     find_by(uid: target_user.uid)
