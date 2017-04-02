@@ -8,6 +8,6 @@ class AddCaseMailer < ApplicationMailer
 
   def add_case(new_case)
     @case = new_case
-    mail(bcc: User.all.pluck(:email), subject: '[不審者情報テスト版] 新しい情報が追加されました')
+    mail(bcc: User.all.pluck(:email), subject: '[不審者情報テスト版] 新しい事例が追加されました')
   end
 end

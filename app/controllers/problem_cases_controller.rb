@@ -32,7 +32,7 @@ class ProblemCasesController < ApplicationController
     respond_to do |format|
       if @problem_case.save
         AddCaseMailer.add_case(@problem_case).deliver_now
-        format.html { redirect_to root_path, notice: '情報は登録されました' }
+        format.html { redirect_to root_path, notice: '事例は登録されました' }
         format.json { render :show, status: :created, location: @problem_case }
       else
         format.html { render :new }
