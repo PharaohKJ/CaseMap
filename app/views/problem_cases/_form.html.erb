@@ -27,12 +27,12 @@
   </div>
 
   <!--
-  <div class="field">
-    <h2>発生場所</h2>
-    <%= f.text_field :address, value: '石川県', placeholder: '例) 石川県金沢市平和町' %>
-    <%= f.check_box :by_map %> <%= f.label :by_map, '発生場所をマップで指定する場合にはチェックしてください' %>
-  </div>
-  -->
+       <div class="field">
+       <h2>発生場所</h2>
+       <%= f.text_field :address, value: '石川県', placeholder: '例) 石川県金沢市平和町' %>
+       <%= f.check_box :by_map %> <%= f.label :by_map, '発生場所をマップで指定する場合にはチェックしてください' %>
+       </div>
+     -->
 
   <div>
     <div class="field">
@@ -64,9 +64,17 @@
      id: 'map'
    }}, function(){
      google.maps.event.addListener(handler.getMap(), "click", function(e) {
+       putNewMarker(e.latLng, handler.getMap());
        $('#user_lat').val(e.latLng.lat());
        $('#user_lng').val(e.latLng.lng());
      });
    });
-
+ var old_marker = null;
+ function putNewMarker(latLng, map) {
+   if (old_marker != null) old_marker.setMap(null);
+   old_marker = new google.maps.Marker({
+     position: latLng,
+     map: map
+   });
+ }
 </script>
