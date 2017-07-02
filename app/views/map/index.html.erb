@@ -15,7 +15,7 @@
       <li><%= link_to 'ログアウト', '/logout' %></li>
     <% end %>
   </div>
-  <h2>最近あった事例10件</h2>
+  <h2>最近あった事例100件</h2>
   <table border="1">
     <tr>
       <th>
@@ -31,7 +31,7 @@
         詳細
       </th>
     </tr>
-    <% ProblemCase.all.order(created_at: :desc).limit(10).each do |r| %>
+    <% ProblemCase.all.order(created_at: :desc).limit(100).each do |r| %>
       <tr>
         <td>
           <%= r.case_type.name %>
