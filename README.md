@@ -47,4 +47,3 @@ AWS_SECRET_ACCESS_KEY=AWS_SES_SECRET_ACCESS_KEY
 # 注意
 
 DBはSQLite3を用いているので注意してください。
-
